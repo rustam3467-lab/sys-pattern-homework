@@ -1,0 +1,16 @@
+---
+- name: Скачивание и распаковка Apache Kafka
+  hosts: all
+  become: true
+  tasks:
+    - name: Создание папки для распаковки архива
+      ansible.builtin.file:
+        path: /opt/kafka
+        state: directory
+        mode: "0755"
+
+    - name: Скачивание архива и его распаковка
+      ansible.builtin.unarchive:
+        src: https://apache.org
+        dest: /opt/kafka
+        remote_src: true

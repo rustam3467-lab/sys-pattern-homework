@@ -1,0 +1,6 @@
+---
+- name: Применение роли настройки веб-сервера Apache
+  hosts: all
+  become: true
+  roles:
+    - apache_role

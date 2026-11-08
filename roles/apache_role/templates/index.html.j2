@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apache Managed by Ansible</title>
+</head>
+<body>
+    <h1>System Characteristics</h1>
+    <ul>
+        <li><strong>Hostname:</strong> {{ ansible_hostname }}</li>
+        <li><strong>IP Address:</strong> {{ ansible_default_ipv4.address }}</li>
+        <li><strong>CPU Model:</strong> {{ ansible_processor[-1] if ansible_processor is defined and ansible_processor else 'N/A' }}</li>
+        <li><strong>RAM Total:</strong> {{ ansible_memtotal_mb }} MB</li>
+        <li><strong>First HDD Size:</strong> {{ ansible_devices.sda.size if 'sda' in ansible_devices else 'N/A' }}</li>
+    </ul>
+</body>
+</html>

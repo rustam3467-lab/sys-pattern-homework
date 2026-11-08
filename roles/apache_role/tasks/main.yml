@@ -1,0 +1,28 @@
+---
+- name: Установка веб-сервера Apache
+  ansible.builtin.package:
+    name: apache2
+    state: present
+
+- name: Конфигурация веб-страницы по умолчанию (index.html)
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: "0644"
+  notify: restart apache
+
+- name: Запуск Apache и добавление в автозагрузку
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+
+- name: Проверка доступности веб-сайта (ожидаем HTTP 200)
+  ansible.builtin.uri:
+    url: "http://localhost"
+    status_code: 200
+  register: web_check
+
+- name: Вывод статуса проверки
+  ansible.builtin.debug:
+    msg: "Сайт доступен, код ответа: {{ web_check.status }}"

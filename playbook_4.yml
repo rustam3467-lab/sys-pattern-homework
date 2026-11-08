@@ -1,0 +1,17 @@
+---
+- name: Модификация системного приветствия (motd) с фактами хоста
+  hosts: all
+  become: false
+  tasks:
+    - name: Создание динамического приветствия в домашней директории
+      ansible.builtin.copy:
+        content: |
+          =======================================================
+          Welcome to the managed server!
+          Hostname: {{ ansible_hostname }}
+          IP Address: {{ ansible_default_ipv4.address }}
+
+          Have a great day, System Administrator!
+          =======================================================
+        dest: ~/my_motd
+        mode: "0644"
